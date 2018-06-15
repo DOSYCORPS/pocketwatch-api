@@ -19,7 +19,7 @@ search: true
 
 # Introduction
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+Welcome to the Pocketwatch API! You can use our API to access Pocketwatch API endpoints, which can get information on various cats, timers, and breeds in our database.
 
 We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
 
@@ -30,69 +30,69 @@ This example API documentation page was created with [Slate](https://github.com/
 > To authorize, use this code:
 
 ```ruby
-require 'kittn'
+require 'pocketwatch'
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
+api = Pocketwatch::APIClient.authorize!('<your API key>')
 ```
 
 ```python
-import kittn
+import pocketwatch
 
-api = kittn.authorize('meowmeowmeow')
+api = pocketwatch.authorize('<your API key>')
 ```
 
 ```shell
 # With shell, you can just pass the correct header with each request
 curl "api_endpoint_here"
-  -H "Authorization: meowmeowmeow"
+  -H "Authorization: <your API key>"
 ```
 
 ```javascript
-const kittn = require('kittn');
+const pocketwatch = require('@dosy/pocketwatch');
 
-let api = kittn.authorize('meowmeowmeow');
+let api = pocketwatch.authorize('<your API key>');
 ```
 
-> Make sure to replace `meowmeowmeow` with your API key.
+> Make sure to replace `<your API key>` with your API key.
 
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
+Pocketwatch uses API keys to allow access to the API. You can register a new Pocketwatch API key at our [developer portal](https://api.pocketwatch.xyz/developers).
 
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
+Pocketwatch expects for the API key to be included in all API requests to the server in a header that looks like the following:
 
-`Authorization: meowmeowmeow`
+`Authorization: <your API key>`
 
 <aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
+You must replace <code><your API key></code> with your personal API key.
 </aside>
 
-# Kittens
+# Timers
 
-## Get All Kittens
+## Get All Timers
 
 ```ruby
-require 'kittn'
+require 'pocketwatch'
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
+api = Pocketwatch::APIClient.authorize!('<your API key>')
+api.timers.get
 ```
 
 ```python
-import kittn
+import pocketwatch
 
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
+api = pocketwatch.authorize('<your API key>')
+api.timers.get()
 ```
 
 ```shell
-curl "http://example.com/api/kittens"
-  -H "Authorization: meowmeowmeow"
+curl "https://api.pocketwatch.xyz/api/timers"
+  -H "Authorization: <your API key>"
 ```
 
 ```javascript
-const kittn = require('kittn');
+const pocketwatch = require('@dosy/pocketwatch');
 
-let api = kittn.authorize('meowmeowmeow');
-let kittens = api.kittens.get();
+let api = pocketwatch.authorize('<your API key>');
+let timers = api.timers.get();
 ```
 
 > The above command returns JSON structured like this:
@@ -116,49 +116,49 @@ let kittens = api.kittens.get();
 ]
 ```
 
-This endpoint retrieves all kittens.
+This endpoint retrieves all timers.
 
 ### HTTP Request
 
-`GET http://example.com/api/kittens`
+`GET https://api.pocketwatch.xyz/api/timers`
 
 ### Query Parameters
 
 Parameter | Default | Description
 --------- | ------- | -----------
 include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
+available | true | If set to false, the result will include timers that have already been adopted.
 
 <aside class="success">
-Remember — a happy kitten is an authenticated kitten!
+Remember — a happy timer is an authenticated timer!
 </aside>
 
-## Get a Specific Kitten
+## Get a Specific Timer
 
 ```ruby
-require 'kittn'
+require 'pocketwatch'
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
+api = Pocketwatch::APIClient.authorize!('<your API key>')
+api.timers.get(2)
 ```
 
 ```python
-import kittn
+import pocketwatch
 
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
+api = pocketwatch.authorize('<your API key>')
+api.timers.get(2)
 ```
 
 ```shell
-curl "http://example.com/api/kittens/2"
-  -H "Authorization: meowmeowmeow"
+curl "https://api.pocketwatch.xyz/api/timers/2"
+  -H "Authorization: <your API key>"
 ```
 
 ```javascript
-const kittn = require('kittn');
+const pocketwatch = require('@dosy/pocketwatch');
 
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.get(2);
+let api = pocketwatch.authorize('<your API key>');
+let max = api.timers.get(2);
 ```
 
 > The above command returns JSON structured like this:
@@ -173,47 +173,47 @@ let max = api.kittens.get(2);
 }
 ```
 
-This endpoint retrieves a specific kitten.
+This endpoint retrieves a specific timer.
 
 <aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
 
 ### HTTP Request
 
-`GET http://example.com/kittens/<ID>`
+`GET https://api.pocketwatch.xyz/timers/<ID>`
 
 ### URL Parameters
 
 Parameter | Description
 --------- | -----------
-ID | The ID of the kitten to retrieve
+ID | The ID of the timer to retrieve
 
-## Delete a Specific Kitten
+## Delete a Specific Timer
 
 ```ruby
-require 'kittn'
+require 'pocketwatch'
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.delete(2)
+api = Pocketwatch::APIClient.authorize!('<your API key>')
+api.timers.delete(2)
 ```
 
 ```python
-import kittn
+import pocketwatch
 
-api = kittn.authorize('meowmeowmeow')
-api.kittens.delete(2)
+api = pocketwatch.authorize('<your API key>')
+api.timers.delete(2)
 ```
 
 ```shell
-curl "http://example.com/api/kittens/2"
+curl "https://api.pocketwatch.xyz/api/timers/2"
   -X DELETE
-  -H "Authorization: meowmeowmeow"
+  -H "Authorization: <your API key>"
 ```
 
 ```javascript
-const kittn = require('kittn');
+const pocketwatch = require('@dosy/pocketwatch');
 
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.delete(2);
+let api = pocketwatch.authorize('<your API key>');
+let max = api.timers.delete(2);
 ```
 
 > The above command returns JSON structured like this:
@@ -225,15 +225,15 @@ let max = api.kittens.delete(2);
 }
 ```
 
-This endpoint deletes a specific kitten.
+This endpoint deletes a specific timer.
 
 ### HTTP Request
 
-`DELETE http://example.com/kittens/<ID>`
+`DELETE https://api.pocketwatch.xyz/timers/<ID>`
 
 ### URL Parameters
 
 Parameter | Description
 --------- | -----------
-ID | The ID of the kitten to delete
+ID | The ID of the timer to delete
 
