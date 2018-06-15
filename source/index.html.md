@@ -39,18 +39,17 @@ let api = pocketwatch.authorize('<your API key>');
 
 Pocketwatch uses API keys to allow access to the API. You can register a new Pocketwatch API key at our [developer portal](https://api.pocketwatch.xyz/).
 
-Pocketwatch expects for the API key to be included in all API requests to the server in as part of the POST body JSON that looks like the following:
+Pocketwatch expects your `apiKey` be included in all API requests to the server in as a parameter of the POST body in `application/json` (shown, but `application/x-www-form-urlencoded` is okay, too) like the following:
 
-```json
+```javascript
 {
-  ... request ...
   apiKey: "<your API key>"
   ... request ...
 }
 ```
 
 <aside class="notice">
-  You must replace <code><your API key></code> with your personal API key.
+  You must replace <code>&lt;your API key&gt;</code> with your personal API key.
 </aside>
 
 # Timers
@@ -63,20 +62,16 @@ const pocketwatch = require('@dosy/pocketwatch');
 let api = pocketwatch.authorize('<your API key>');
 let timers = api.timer.create({
   name: "My new timer",
-  interval: { 
-    unit: "second",
-    count: 1
-  },
-  duration: {
-    unit: "week",
-    count: 2
-  }
+  interval: "second",
+  interval_count: 1,
+  duration: "week",
+  duration_count: 2
 });
 ```
 
 > The above command returns JSON structured like this:
 
-```json
+```javascript
 {
   "action": "create",
   "status": "success",
@@ -96,13 +91,13 @@ This endpoint creates a new timer.
 
 Parameter | Default | Description
 --------- | ------- | -----------
-name | "", optional | A descriptive name for your timer. Is not required to be unique. Can contain spaces.
-url | no default, required | The full URL that your timer will request ( only http or https schemes are supported )
-method | GET | The HTTP method your timer will use to request your URL. Must be one of GET or POST.
-unit | no default, required | The unit to count interval time in. Must be one of "second", "minute", "hour", "day", "week", "month"
-count | no default, required | The number of unit times between intervals for your timer. Must be positive whole number greater than or equal to 1
-duration_unit | no default, required | The unit to count total timer duration in. Must be one of "second", "minute", "hour", "day", "week", "month"
-duration_count | no default, required | The number of duration units your timer will exist for. Must be positive whole number greater than or equal to 1
+name | "" | A descriptive name for your timer. Is not required to be unique. Can contain spaces.
+url |  required | The full URL that your timer will request ( only http or https schemes are supported )
+method | "GET" | The HTTP method your timer will use to request your URL. Must be one of GET or POST.
+interval |  required | The unit to count interval time in. Must be one of "second", "minute", "hour", "day", "week", "month"
+interval_count |  required | The number of unit times between intervals for your timer. Must be positive whole number greater than or equal to 1
+duration |  required | The unit to count total timer duration in. Must be one of "second", "minute", "hour", "day", "week", "month"
+duration_count |  required | The number of duration units your timer will exist for. Must be positive whole number greater than or equal to 1
 
 
 <aside class="success">
