@@ -2,14 +2,14 @@
 title: API Reference
 
 language_tabs: # must be one of https://git.io/vQNgJ
-  - shell
-  - ruby
-  - python
   - javascript
 
 toc_footers:
-  - <a href='#'>Sign Up for a Developer Key</a>
-  - <a href='https://github.com/lord/slate'>Documentation Powered by Slate</a>
+  - <a 
+      style=color:lime 
+      target=_new 
+      href=https://api.pocketwatch.xyz/?where_do_you_come_from=docs>API Keys, Monthly Plans</a>
+  - <a href='https://github.com/lord/slate'>Super Doc Powers &#x26a1; by Slate</a>
 
 includes:
   - errors
@@ -29,24 +29,6 @@ This example API documentation page was created with [Slate](https://github.com/
 
 > To authorize, use this code:
 
-```ruby
-require 'pocketwatch'
-
-api = Pocketwatch::APIClient.authorize!('<your API key>')
-```
-
-```python
-import pocketwatch
-
-api = pocketwatch.authorize('<your API key>')
-```
-
-```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here"
-  -H "Authorization: <your API key>"
-```
-
 ```javascript
 const pocketwatch = require('@dosy/pocketwatch');
 
@@ -55,185 +37,114 @@ let api = pocketwatch.authorize('<your API key>');
 
 > Make sure to replace `<your API key>` with your API key.
 
-Pocketwatch uses API keys to allow access to the API. You can register a new Pocketwatch API key at our [developer portal](https://api.pocketwatch.xyz/developers).
+Pocketwatch uses API keys to allow access to the API. You can register a new Pocketwatch API key at our [developer portal](https://api.pocketwatch.xyz/).
 
-Pocketwatch expects for the API key to be included in all API requests to the server in a header that looks like the following:
+Pocketwatch expects for the API key to be included in all API requests to the server in as part of the POST body JSON that looks like the following:
 
-`Authorization: <your API key>`
+```json
+{
+  ... request ...
+  apiKey: "<your API key>"
+  ... request ...
+}
+```
 
 <aside class="notice">
-You must replace <code><your API key></code> with your personal API key.
+  You must replace <code><your API key></code> with your personal API key.
 </aside>
 
 # Timers
 
-## Get All Timers
-
-```ruby
-require 'pocketwatch'
-
-api = Pocketwatch::APIClient.authorize!('<your API key>')
-api.timers.get
-```
-
-```python
-import pocketwatch
-
-api = pocketwatch.authorize('<your API key>')
-api.timers.get()
-```
-
-```shell
-curl "https://api.pocketwatch.xyz/api/timers"
-  -H "Authorization: <your API key>"
-```
+## Create a new Timer
 
 ```javascript
 const pocketwatch = require('@dosy/pocketwatch');
 
 let api = pocketwatch.authorize('<your API key>');
-let timers = api.timers.get();
-```
-
-> The above command returns JSON structured like this:
-
-```json
-[
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
+let timers = api.timer.create({
+  name: "My new timer",
+  interval: { 
+    unit: "second",
+    count: 1
   },
-  {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
+  duration: {
+    unit: "week",
+    count: 2
   }
-]
-```
-
-This endpoint retrieves all timers.
-
-### HTTP Request
-
-`GET https://api.pocketwatch.xyz/api/timers`
-
-### Query Parameters
-
-Parameter | Default | Description
---------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include timers that have already been adopted.
-
-<aside class="success">
-Remember — a happy timer is an authenticated timer!
-</aside>
-
-## Get a Specific Timer
-
-```ruby
-require 'pocketwatch'
-
-api = Pocketwatch::APIClient.authorize!('<your API key>')
-api.timers.get(2)
-```
-
-```python
-import pocketwatch
-
-api = pocketwatch.authorize('<your API key>')
-api.timers.get(2)
-```
-
-```shell
-curl "https://api.pocketwatch.xyz/api/timers/2"
-  -H "Authorization: <your API key>"
-```
-
-```javascript
-const pocketwatch = require('@dosy/pocketwatch');
-
-let api = pocketwatch.authorize('<your API key>');
-let max = api.timers.get(2);
+});
 ```
 
 > The above command returns JSON structured like this:
 
 ```json
 {
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
+  "action": "create",
+  "status": "success",
+  "timer": {
+    "keyName": "<timer keyName>"
+  }
 }
 ```
 
-This endpoint retrieves a specific timer.
-
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
+This endpoint creates a new timer.
 
 ### HTTP Request
 
-`GET https://api.pocketwatch.xyz/timers/<ID>`
+`POST https://api.pocketwatch.xyz/v1/timer/new`
 
-### URL Parameters
+### Body Parameters
 
-Parameter | Description
---------- | -----------
-ID | The ID of the timer to retrieve
+Parameter | Default | Description
+--------- | ------- | -----------
+name | "", optional | A descriptive name for your timer. Is not required to be unique. Can contain spaces.
+url | no default, required | The full URL that your timer will request ( only http or https schemes are supported )
+method | GET | The HTTP method your timer will use to request your URL. Must be one of GET or POST.
+unit | no default, required | The unit to count interval time in. Must be one of "second", "minute", "hour", "day", "week", "month"
+count | no default, required | The number of unit times between intervals for your timer. Must be positive whole number greater than or equal to 1
+duration_unit | no default, required | The unit to count total timer duration in. Must be one of "second", "minute", "hour", "day", "week", "month"
+duration_count | no default, required | The number of duration units your timer will exist for. Must be positive whole number greater than or equal to 1
+
+
+<aside class="success">
+  Remember — Include apiKey with the above request to authenticate!
+<</aside>
 
 ## Delete a Specific Timer
-
-```ruby
-require 'pocketwatch'
-
-api = Pocketwatch::APIClient.authorize!('<your API key>')
-api.timers.delete(2)
-```
-
-```python
-import pocketwatch
-
-api = pocketwatch.authorize('<your API key>')
-api.timers.delete(2)
-```
-
-```shell
-curl "https://api.pocketwatch.xyz/api/timers/2"
-  -X DELETE
-  -H "Authorization: <your API key>"
-```
 
 ```javascript
 const pocketwatch = require('@dosy/pocketwatch');
 
 let api = pocketwatch.authorize('<your API key>');
-let max = api.timers.delete(2);
+const result = api.timer.delete('<timer keyName>');
 ```
 
 > The above command returns JSON structured like this:
 
 ```json
 {
-  "id": 2,
-  "deleted" : ":("
+  "action": "delete",
+  "keyName": "<timer keyName>",
+  "status": "success"
 }
 ```
 
 This endpoint deletes a specific timer.
 
+<aside class="warning">
+  Once you delete a timer you cannot get it back and its execution will stop immediately. 
+  You will be recredited for the approximate amount of hits remaining on your timer, so those amount of hits will be added back to your quota for your plan.
+</aside>
+
 ### HTTP Request
 
-`DELETE https://api.pocketwatch.xyz/timers/<ID>`
+`POST https://api.pocketwatch.xyz/v1/delete/timer`
 
-### URL Parameters
+### Body Parameters
 
 Parameter | Description
 --------- | -----------
-ID | The ID of the timer to delete
+keyName | The keyName of the timer to delete
+
+## Delete a Specific Timer
+
 
