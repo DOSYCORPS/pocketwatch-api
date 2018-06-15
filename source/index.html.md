@@ -11,6 +11,7 @@ toc_footers:
       href=https://api.pocketwatch.xyz/?where_do_you_come_from=docs>API Keys, Monthly Plans</a>
   - <a href='https://github.com/lord/slate'>Super Doc Powers &#x26a1; by Slate</a>
   - <a href=https://github.com/dosyago-corp/service-issues/issues>Open an Issue</a>
+  - <a href=https://github.com/dosyago-corp/pocketwatch.js>Client library on GitHub</a>
 
 includes:
   - errors
