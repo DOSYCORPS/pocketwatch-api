@@ -10,6 +10,7 @@ toc_footers:
       target=_new 
       href=https://api.pocketwatch.xyz/?where_do_you_come_from=docs>API Keys, Monthly Plans</a>
   - <a href='https://github.com/lord/slate'>Super Doc Powers &#x26a1; by Slate</a>
+  - <a href=https://github.com/dosyago-corp/service-issues/issues>Open an Issue</a>
 
 includes:
   - errors
@@ -99,7 +100,7 @@ search: true
   name | A descriptive name for your timer. Is not required to be unique. Can contain spaces. Optional.
 
   <aside class="success">
-    Remember — Include apiKey with the above request to authenticate!
+    Remember — Include `apiKey` with the above request to authenticate!
   </aside>
 
 ## Delete a Specific Timer
@@ -142,7 +143,64 @@ search: true
 
 ## Refresh an API Key
 
+  ```javascript
+  const pocketwatch = require('@dosy/pocketwatch');
+
+  let api = pocketwatch.authorize('<your API key>');
+  const result = await api.key.refresh();
+  ```
+
+> The above command returns JSON structured like this:
+
+  ```javascript
+  {
+    "action": "refresh",
+    "status": "success",
+    "oldKey": "<your old API key>",
+    "apiKey": "<your new API key>"
+  }
+  ```
+
+  This endpoint refreshes your API key. 
+
+### HTTP Request
+
+  `POST https://api.pocketwatch.xyz/v1/key/refresh`
+
+  <aside class="warning">
+    The `oldKey` will become invalid. This nearly always happens immediately, but
+    occasionally it may not be immediate. Plan to begin using your new `apiKey` for all
+    subsequent requests.
+    Remember — Include `apiKey` with the above request to authenticate!
+  </aside>
+
 # Subscriptions
 
 ## Cancel a subscription
 
+  ```javascript
+  const pocketwatch = require('@dosy/pocketwatch');
+
+  let api = pocketwatch.authorize('<your API key>');
+  const result = await api.subscription.cancel();
+  ```
+
+> The above command returns JSON structured like this:
+
+  ```javascript
+  {
+    "action": "cancel",
+    "status": "success",
+    "endsAt": "<timestamp at which the subscription will end>"
+  }
+  ```
+
+  This endpoint cancels your subscription. 
+
+### HTTP Request
+
+  `POST https://api.pocketwatch.xyz/v1/subscription/cancel`
+
+  <aside class="warning">
+    Please note - we do not offer partial refunds if you paid for an entire billing period and then cancel part way through. Instead, your subscription will remain operational until the end of the current billing period, at which time it will end. 
+  </aside>
