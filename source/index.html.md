@@ -56,6 +56,8 @@ search: true
 
 ## Create a new Timer
 
+> To create a timer, use this code:
+
   ```javascript
   const pocketwatch = require('@dosy/pocketwatch');
 
@@ -81,7 +83,7 @@ search: true
   }
   ```
 
-  This endpoint creates a new timer.
+  This endpoint creates a new timer. It will begin running immediately.
 
 ### HTTP Request
 
@@ -105,6 +107,8 @@ search: true
 
 ## Delete a Specific Timer
 
+> To delete one of your timers, use code like this:
+
   ```javascript
   const pocketwatch = require('@dosy/pocketwatch');
 
@@ -126,7 +130,6 @@ search: true
 
   <aside class="warning">
     Once you delete a timer you cannot get it back and its execution will stop immediately. 
-    You will be recredited for the approximate amount of hits remaining on your timer, so those amount of hits will be added back to your quota for your plan.
   </aside>
 
 ### HTTP Request
@@ -139,9 +142,15 @@ search: true
   --------- | -----------
   keyName | The keyName of the timer to delete
 
+  <aside class="success">
+    Your plan's hit quota be credited for the approximate amount of hits remaining on the deleted timer.
+  </aside>
+
 # API Keys
 
 ## Refresh an API Key
+
+> To refresh your current API key, and be issued a new API key, do this:
 
   ```javascript
   const pocketwatch = require('@dosy/pocketwatch');
@@ -167,7 +176,7 @@ search: true
 
   `POST https://api.pocketwatch.xyz/v1/key/refresh`
 
-  <aside class="warning">
+  <aside class="notice">
     The `oldKey` will become invalid. This nearly always happens immediately, but
     occasionally it may not be immediate. Plan to begin using your new `apiKey` for all
     subsequent requests.
@@ -177,6 +186,8 @@ search: true
 # Subscriptions
 
 ## Cancel a subscription
+
+> To cancel your subscription, issue this command:
 
   ```javascript
   const pocketwatch = require('@dosy/pocketwatch');
@@ -202,5 +213,5 @@ search: true
   `POST https://api.pocketwatch.xyz/v1/subscription/cancel`
 
   <aside class="warning">
-    Please note - we do not offer partial refunds if you paid for an entire billing period and then cancel part way through. Instead, your subscription will remain operational until the end of the current billing period, at which time it will end. 
+    Please note &mdash; we do not offer partial refunds if you paid for an entire billing period and then cancel part way through. Instead, the subscription will work until the end of your current billing period, at which time it will cease. 
   </aside>
