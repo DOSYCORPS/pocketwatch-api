@@ -99,8 +99,10 @@ search: true
   duration | The unit to count total timer duration in. Must be one of "second", "minute", "hour", "day", "week", "month"
   durationCount | The number of duration units your timer will exist for. Must be positive whole number greater than or equal to 1
   url |  The full URL that your timer will request ( only http or https schemes are supported )
-  method | The HTTP method your timer will use to request your URL. Must be one of GET or POST.
-  name | A descriptive name for your timer. Is not required to be unique. Can contain spaces. Optional.
+  method | The HTTP method your timer will use to request your URL. Must be one of GET, POST, PUT, PATCH, HEAD or DELETE. The client library will fill it as GET if omitted.
+  body | Optional. Valid for method that's not GET or HEAD. If present, must be a string value. The request body to send.
+  contentType | Optional, defaults to 'application/json'. The value of the 'Content-Type' header of your request. Valid for requests with a body. If present must be a string.
+  name | Optional. A descriptive name for your timer. Is not required to be unique. Can contain spaces. If present must be a string.
 
   <aside class="success">
     Remember — Include `apiKey` with the above request to authenticate!
