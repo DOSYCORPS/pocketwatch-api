@@ -64,11 +64,13 @@ search: true
 
   let api = pocketwatch.authorize('<your API key>');
   let timers = api.timer.create({
-    name: "My new timer",
+    url: "https://example.com/my-webhook",
+    method: "POST",
     interval: "second",
     intervalCount: 1,
     duration: "week",
-    durationCount: 2
+    durationCount: 2,
+    name: "My new timer",
   });
   ```
 
